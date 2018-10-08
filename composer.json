@@ -1,0 +1,20 @@
+{
+    "type": "library",
+    "name": "ciencuadras/rest-client",
+    "description": "Cliente de API REST Ciencuadras",
+    "keywords": ["ciencuadras", "http", "rest", "HTTP client"],
+    "authors": [
+        {
+            "name": "Ricardo Almira",
+            "email": "ralmira@asesoftware.com",
+            "homepage": "https://github.com/ricardoalmira89"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^3.3"
+    }
+}
