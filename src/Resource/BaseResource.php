@@ -51,7 +51,7 @@ abstract class BaseResource
         return json_decode($res->getBody()->getContents());
     }
 
-    public function new($data = []){
+    public function create($data = []){
         $options = [];
         $this->authorizeRequest($options);
         $options['headers']['Content-Type'] = "application/json";
