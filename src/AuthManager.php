@@ -10,6 +10,7 @@ namespace Ciencuadras;
 
 use Ciencuadras\Util\AlmArray;
 use Ciencuadras\Util\AlmDate;
+use Ciencuadras\Util\AlmValidator;
 use GuzzleHttp\Client;
 
 class AuthManager
@@ -26,6 +27,7 @@ class AuthManager
     private $refresh_token = null;
     private $expiresIn = null;
     private $expiresDate = null;
+    private $sessionPath = "/var/session";
 
     public function __construct($data = [])
     {
@@ -35,8 +37,9 @@ class AuthManager
         $this->client_secret = AlmArray::get($data, 'client_secret');
         $this->api = AlmArray::get($data, 'api');;
         $this->client = new Client();
-        $this->access_token = AlmArray::get($data, 'access_token');
-        $this->refresh_token = AlmArray::get($data, 'refresh_token');
+
+
+        $this->loadToken();
     }
 
     public function auth(){
@@ -166,30 +169,29 @@ class AuthManager
         return $this->api;
     }
 
-//    /**
-//     * Almacena el token en la sesion
-//     * @param array $options
-//     */
-//    private function saveToken($options = []){
-//
-//        if (AlmArray::get($options, 'access_token'))
-//            $_SESSION['access_token'] = $options['access_token'];
-//
-//        if (AlmArray::get($options, 'refresh_token'))
-//            $_SESSION['refresh_token'] = $options['refresh_token'];
-//
-//        if (AlmArray::get($options, 'expires_in'))
-//            $_SESSION['expires_in'] = $options['expires_in'];
-//    }
-//
-//    private function loadFromSession(){
-//        $this->access_token = $_SESSION['access_token'];
-//        $this->refresh_token = $_SESSION['refresh_token'];
-//        $this->expiresIn = $_SESSION['expires_in'];
-//
-//        dump($this->access_token, $this->expiresIn);die();
-//
-//        dump($_SESSION);die();
-//    }
+    /**
+     * Almacena el token en la sesion
+     * @param array $token
+     */
+    private function saveToken($token){
+
+        AlmValidator::validate($token, array(
+            'access_token' => 'req',
+            'refresh_token' => 'req',
+            'expires_in' => 'req'
+        ));
+
+        AlmArray::saveToFile($token, __DIR__.'/../'.$this->sessionPath);
+    }
+
+    private function loadToken(){
+
+        $token = AlmArray::loadFromFile( __DIR__.'/../'.$this->sessionPath);
+
+        $this->access_token = AlmArray::get($token, 'access_token');
+        $this->refresh_token = AlmArray::get($token, 'refresh_token');
+        $this->expiresIn = AlmArray::get($token, 'expires_in');
+        $this->expiresDate = AlmDate::expiresAt($this->expiresIn);
+    }
 
 }
