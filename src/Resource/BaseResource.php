@@ -14,8 +14,8 @@ use GuzzleHttp\Client;
 abstract class BaseResource
 {
     private $path = 'api/v1';
-    private $client;
-    private $endpoint;
+    protected $client;
+    protected $endpoint;
     private $authManager;
 
     public function __construct($path, AuthManager $authManager)
@@ -25,7 +25,7 @@ abstract class BaseResource
         $this->authManager = $authManager;
     }
 
-    private function authorizeRequest(&$options){
+    protected function authorizeRequest(&$options){
         $this->authManager->auth();
         $options['headers']['Authorization'] = "Bearer ".$this->authManager->getAccessToken();
     }

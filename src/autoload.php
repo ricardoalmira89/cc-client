@@ -7,6 +7,7 @@ require_once __DIR__.'/Util/AlmArray.php';
 require_once __DIR__.'/Util/AlmDate.php';
 require_once __DIR__.'/Util/AlmValidator.php';
 require_once __DIR__.'/Client.php';
+require_once __DIR__.'/Resource/Estado/EstadoInmueble.php';
 require_once __DIR__.'/Resource/BaseResource.php';
 require_once __DIR__.'/Resource/DistribucionEspacio.php';
 require_once __DIR__.'/Resource/EstiloVida.php';
