@@ -14,7 +14,7 @@ Uso
 <?php
 
 use Ciencuadras\Client;
-require_once 'autoload.php';
+require_once 'vendor/autoload.php';
 
 $parameters = array(
     'api' => "http://api-rest.ciencuadras.com",

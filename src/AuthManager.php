@@ -181,12 +181,16 @@ class AuthManager
             'expires_in' => 'req'
         ));
 
-        AlmArray::saveToFile($token, __DIR__.'/../'.$this->sessionPath);
+        if (!file_exists(__DIR__.'/..'.$this->sessionPath)){
+            mkdir(__DIR__.'/../var');
+        }
+
+        AlmArray::saveToFile($token, __DIR__.'/..'.$this->sessionPath);
     }
 
     private function loadToken(){
 
-        $token = AlmArray::loadFromFile( __DIR__.'/../'.$this->sessionPath);
+        $token = AlmArray::loadFromFile( __DIR__.'/..'.$this->sessionPath);
 
         $this->access_token = AlmArray::get($token, 'access_token');
         $this->refresh_token = AlmArray::get($token, 'refresh_token');
