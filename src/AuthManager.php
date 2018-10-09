@@ -79,7 +79,6 @@ class AuthManager
 
             } catch (\Exception $ex){
                 echo $ex->getMessage();
-                die();
             }
 
         }
@@ -140,12 +139,13 @@ class AuthManager
      * @return mixed
      */
     private function buildToken($res){
-        $token = json_decode($res->getBody()->getContents());
+        $token = json_decode($res->getBody()->getContents(), true);
         if ($token){
-            $this->access_token = $token->access_token;
-            $this->refresh_token = $token->refresh_token;
-            $this->expiresIn = $token->expires_in;
+            $this->access_token = $token['access_token'];
+            $this->refresh_token = $token['refresh_token'];
+            $this->expiresIn = $token['expires_in'];
             $this->expiresDate = AlmDate::expiresAt($this->expiresIn);
+            $this->saveToken($token);
         }
 
         return $token;
@@ -164,6 +164,32 @@ class AuthManager
 
     public function getApi(){
         return $this->api;
+    }
+
+    /**
+     * Almacena el token en la sesion
+     * @param array $options
+     */
+    private function saveToken($options = []){
+
+        if (AlmArray::get($options, 'access_token'))
+            $_SESSION['access_token'] = $options['access_token'];
+
+        if (AlmArray::get($options, 'refresh_token'))
+            $_SESSION['refresh_token'] = $options['refresh_token'];
+
+        if (AlmArray::get($options, 'expires_in'))
+            $_SESSION['expires_in'] = $options['expires_in'];
+    }
+
+    private function loadFromSession(){
+        $this->access_token = $_SESSION['access_token'];
+        $this->refresh_token = $_SESSION['refresh_token'];
+        $this->expiresIn = $_SESSION['expires_in'];
+
+        dump($this->access_token, $this->expiresIn);die();
+
+        dump($_SESSION);die();
     }
 
 }

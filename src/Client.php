@@ -11,6 +11,7 @@ namespace Ciencuadras;
 use Ciencuadras\Resource\BaseResource;
 use Ciencuadras\Resource\DistribucionEspacio;
 use Ciencuadras\Resource\EstiloVida;
+use Ciencuadras\Resource\Inmueble;
 use Ciencuadras\Util\AlmArray;
 use Ciencuadras\Util\AlmValidator;
 
@@ -30,7 +31,8 @@ class Client
 
         $this->recursos = array(
             'distribucionEspacio' => new DistribucionEspacio($this->authManager),
-            'estiloVida' => new EstiloVida($this->authManager)
+            'estiloVida'          => new EstiloVida($this->authManager),
+            'inmueble'            => new Inmueble($this->authManager)
         );
     }
 
@@ -40,7 +42,7 @@ class Client
      * @param $resourceName
      * @return BaseResource
      */
-    public function getRecurso($resourceName){
+    public function get($resourceName){
         return AlmArray::get($this->recursos, $resourceName);
     }
 
