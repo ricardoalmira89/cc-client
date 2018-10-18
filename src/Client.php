@@ -13,6 +13,7 @@ use Ciencuadras\Resource\BaseResource;
 use Ciencuadras\Resource\DistribucionEspacio;
 use Ciencuadras\Resource\EstiloVida;
 use Ciencuadras\Resource\Inmueble;
+use Ciencuadras\Resource\Localidad;
 use Ciencuadras\Resource\Media;
 use Ciencuadras\Util\AlmArray;
 use Ciencuadras\Util\AlmValidator;
@@ -37,6 +38,7 @@ class Client
             'inmueble'            => new Inmueble($this->authManager),
             'media'               => new Media($this->authManager),
             'barrio'              => new Barrio($this->authManager),
+            'localidad'           => new Localidad($this->authManager),
         );
     }
 
