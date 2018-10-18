@@ -12,3 +12,5 @@ require_once __DIR__.'/Resource/BaseResource.php';
 require_once __DIR__.'/Resource/DistribucionEspacio.php';
 require_once __DIR__.'/Resource/EstiloVida.php';
 require_once __DIR__.'/Resource/Inmueble.php';
+require_once __DIR__.'/Resource/Media.php';
+require_once __DIR__.'/Resource/Barrio.php';
