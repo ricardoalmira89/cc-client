@@ -82,6 +82,7 @@ class AuthManager
 
             } catch (\Exception $ex){
                 echo $ex->getMessage();
+                die();
             }
 
         }

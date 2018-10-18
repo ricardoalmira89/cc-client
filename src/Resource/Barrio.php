@@ -18,4 +18,23 @@ class Barrio extends BaseResource
         parent::__construct("barrios", $authManager);
     }
 
+    /**
+     * Mueve inmuebles de un barrio a otro.
+     *
+     * @param $id_barrio_destino
+     * @param $inmobiliarias
+     * @return mixed
+     */
+    public function moverImuebles($id_barrio_destino, $inmobiliarias){
+
+        $options = [];
+        $this->authorizeRequest($options);
+        $options['headers']['Content-Type'] = "application/json";
+        $options['body'] = json_encode(['inmuebles' => $inmobiliarias]);
+
+        $res = $this->client->put($this->endpoint."/".$id_barrio_destino."/inmuebles", $options);
+        return json_decode($res->getBody()->getContents());
+
+    }
+
 }
