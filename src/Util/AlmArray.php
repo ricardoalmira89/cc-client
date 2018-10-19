@@ -126,6 +126,10 @@ class AlmArray
      * @return mixed
      */
     public static function loadFromFile($filename){
+
+        if (!file_exists($filename))
+            return null;
+
         $fh = fopen($filename, "r");
         $json = fread($fh, filesize($filename));
 
