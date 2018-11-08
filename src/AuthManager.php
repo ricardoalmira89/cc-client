@@ -54,6 +54,7 @@ class AuthManager
                         'grant_type' => 'refresh_token',
                         'client_id'  => $this->client_id,
                         'client_secret' => $this->client_secret,
+                        'refresh_token' => $this->refresh_token
                     )
                 ));
 
@@ -149,6 +150,7 @@ class AuthManager
             $this->refresh_token = $token['refresh_token'];
             $this->expiresIn = $token['expires_in'];
             $this->expiresDate = AlmDate::expiresAt($this->expiresIn);
+            $token['expires_date'] = $this->expiresDate->format('Y-m-d H:i:s');
             $this->saveToken($token);
         }
 
@@ -179,7 +181,8 @@ class AuthManager
         AlmValidator::validate($token, array(
             'access_token' => 'req',
             'refresh_token' => 'req',
-            'expires_in' => 'req'
+            'expires_in' => 'req',
+            'expires_date' => 'req'
         ));
 
         if (!file_exists(__DIR__.'/..'.$this->sessionPath)){
@@ -196,7 +199,7 @@ class AuthManager
         $this->access_token = AlmArray::get($token, 'access_token');
         $this->refresh_token = AlmArray::get($token, 'refresh_token');
         $this->expiresIn = AlmArray::get($token, 'expires_in');
-        $this->expiresDate = AlmDate::expiresAt($this->expiresIn);
+        $this->expiresDate = new \DateTime(AlmArray::get($token, 'expires_date'));
     }
 
 }

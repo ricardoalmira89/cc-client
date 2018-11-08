@@ -25,7 +25,7 @@ class AlmDate
      */
     public static function expiresAt($timestamp){
         $expires = new \DateTime('now');
-        $expires->modify(sprintf("+%s hours", ((($timestamp / 60) / 60 ) / 60)));
+        $expires->modify(sprintf("+%s hours", (($timestamp / 60) / 60 )));
 
         return $expires;
     }
