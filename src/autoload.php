@@ -15,3 +15,4 @@ require_once __DIR__.'/Resource/Inmueble.php';
 require_once __DIR__.'/Resource/Media.php';
 require_once __DIR__.'/Resource/Barrio.php';
 require_once __DIR__.'/Resource/Localidad.php';
+require_once __DIR__.'/Resource/Log.php';
