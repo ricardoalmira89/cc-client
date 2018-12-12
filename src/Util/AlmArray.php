@@ -106,6 +106,25 @@ class AlmArray
         return $result;
     }
 
+    public static function selectMany($data, $_keys){
+
+        $result = null;
+        $keys = preg_split('/\,/', $_keys);
+
+        foreach ($keys as $key){
+            if (is_array($data)){
+
+                $i = 0;
+                foreach ($data as $item){
+                    if (isset($item[$key])) $result[$i][$key] = $item[$key];
+                    $i++;
+                }
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Guarda un array a un fichero
      *
