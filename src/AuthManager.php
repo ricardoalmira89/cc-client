@@ -61,8 +61,19 @@ class AuthManager
                 $this->buildToken($res);
 
             } catch (\Exception $ex){
-                echo $ex->getMessage();
-                die();
+
+                // si no refresca, crear uno nuevo y ya
+                $res = $this->client->post($this->api."/oauth/v2/token", array(
+                    'form_params' => array(
+                        'grant_type' => 'password',
+                        'client_id'  => $this->client_id,
+                        'client_secret' => $this->client_secret,
+                        'username' => $this->username,
+                        'password' => $this->password
+                    )
+                ));
+
+                $this->buildToken($res);
             }
         }
 
