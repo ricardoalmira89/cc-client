@@ -40,8 +40,11 @@ abstract class BaseResource
     }
 
     public function show($id, $options = []){
+
+        $endpoint = sprintf("%s?%s", $this->endpoint.'/'.$id, http_build_query($options));
         $this->authorizeRequest($options);
-        $res = $this->client->get($this->endpoint.'/'.$id, $options);
+
+        $res = $this->client->get($endpoint, $options);
         return json_decode($res->getBody()->getContents());
     }
 
