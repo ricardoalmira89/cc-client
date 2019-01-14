@@ -27,6 +27,13 @@ class Media extends BaseResource
         return $multipart;
     }
 
+    /**
+     * Sube la imagen a s3 si se especifica 'migrar_s3=1', pero ademas la almacena
+     * en db como un recurso inm_media.
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function create($data = []){
         $options = [];
 
@@ -34,6 +41,21 @@ class Media extends BaseResource
         $this->authorizeRequest($options);
 
         $res = $this->client->post($this->endpoint."/", $options);
+        return json_decode($res->getBody()->getContents());
+    }
+
+    /**
+     * Sube la imagen soloa s3, no la almacena en db
+     * @param array $data
+     * @return mixed
+     */
+    public function creates3($data = []){
+        $options = [];
+
+        $options['multipart'] = $this->buildMultipart($data);
+        $this->authorizeRequest($options);
+
+        $res = $this->client->post($this->endpoint."/s3", $options);
         return json_decode($res->getBody()->getContents());
     }
 }
