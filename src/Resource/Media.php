@@ -21,24 +21,17 @@ class Media extends BaseResource
             $multipart[] = ['name' => 'archivo', 'contents' => fopen(AlmArray::get($data, 'archivo'), 'r')];
 
         $multipart[] = ['name' => 'id_inmueble', 'contents' => AlmArray::get($data, 'id_inmueble')];
-        $multipart[] = ['name' => 'id_espacio_fisico', 'contents' => AlmArray::get($data, 'id_espacio_fisico')];
-
-        /**
-         * Por defecto NO se migra a s3
-         */
-        $multipart[] = ['name' => 'migrar_s3', 'contents' => 0 ];
+        $multipart[] = ['name' => 'espacio_fisico', 'contents' => AlmArray::get($data, 'espacio_fisico')];
+        $multipart[] = ['name' => 'migrar_s3', 'contents' => AlmArray::get($data, 'migrar_s3', 0) ];
 
         return $multipart;
     }
 
     public function create($data = []){
         $options = [];
-        $this->authorizeRequest($options);
-        $options['headers']['Content-Type'] = "multipart/form-data";
 
-        //todo: el multipart no funciona bien, buscar como arreglarlo
         $options['multipart'] = $this->buildMultipart($data);
-//        dump($options);die();
+        $this->authorizeRequest($options);
 
         $res = $this->client->post($this->endpoint."/", $options);
         return json_decode($res->getBody()->getContents());
