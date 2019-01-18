@@ -13,6 +13,7 @@ use Ciencuadras\Resource\BaseResource;
 use Ciencuadras\Resource\DistribucionEspacio;
 use Ciencuadras\Resource\EstiloVida;
 use Ciencuadras\Resource\Inmueble;
+use Ciencuadras\Resource\InmuebleRelacionado;
 use Ciencuadras\Resource\Localidad;
 use Ciencuadras\Resource\Log;
 use Ciencuadras\Resource\Media;
@@ -34,13 +35,14 @@ class Client
         $this->authManager = new AuthManager($options);
 
         $this->recursos = array(
-            'distribucionEspacio' => new DistribucionEspacio($this->authManager),
-            'estiloVida'          => new EstiloVida($this->authManager),
-            'inmueble'            => new Inmueble($this->authManager),
-            'media'               => new Media($this->authManager),
-            'barrio'              => new Barrio($this->authManager),
-            'localidad'           => new Localidad($this->authManager),
-            'log'                 => new Log($this->authManager),
+            'distribucionEspacio'  => new DistribucionEspacio($this->authManager),
+            'estiloVida'           => new EstiloVida($this->authManager),
+            'inmueble'             => new Inmueble($this->authManager),
+            'inmueble-relacionado' => new InmuebleRelacionado($this->authManager),
+            'media'                => new Media($this->authManager),
+            'barrio'               => new Barrio($this->authManager),
+            'localidad'            => new Localidad($this->authManager),
+            'log'                  => new Log($this->authManager),
         );
     }
 
