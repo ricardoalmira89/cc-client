@@ -16,6 +16,7 @@ use Ciencuadras\Resource\Inmueble;
 use Ciencuadras\Resource\InmuebleRelacionado;
 use Ciencuadras\Resource\Localidad;
 use Ciencuadras\Resource\Log;
+use Ciencuadras\Resource\Mail;
 use Ciencuadras\Resource\Media;
 use Ciencuadras\Util\AlmArray;
 use Ciencuadras\Util\AlmValidator;
@@ -43,6 +44,7 @@ class Client
             'barrio'               => new Barrio($this->authManager),
             'localidad'            => new Localidad($this->authManager),
             'log'                  => new Log($this->authManager),
+            'email'                => new Mail($this->authManager),
         );
     }
 
