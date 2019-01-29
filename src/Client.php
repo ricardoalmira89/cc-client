@@ -12,6 +12,7 @@ use Ciencuadras\Resource\Barrio;
 use Ciencuadras\Resource\BaseResource;
 use Ciencuadras\Resource\DistribucionEspacio;
 use Ciencuadras\Resource\EstiloVida;
+use Ciencuadras\Resource\Favorito;
 use Ciencuadras\Resource\Inmueble;
 use Ciencuadras\Resource\InmuebleRelacionado;
 use Ciencuadras\Resource\Localidad;
@@ -45,6 +46,7 @@ class Client
             'localidad'            => new Localidad($this->authManager),
             'log'                  => new Log($this->authManager),
             'email'                => new Mail($this->authManager),
+            'favorito'             => new Favorito($this->authManager),
         );
     }
 
